@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#190019" />
+    <title>أنت أوفلاين · تخميس</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: "Cairo", "Tajawal", "Segoe UI", sans-serif;
+        color: #FBE4D8;
+        background:
+          radial-gradient(900px 600px at 80% -10%, rgba(82,43,91,.7), transparent 60%),
+          radial-gradient(700px 500px at -10% 100%, rgba(133,79,108,.35), transparent 60%),
+          #190019;
+      }
+      .card {
+        width: 100%;
+        max-width: 460px;
+        text-align: center;
+        padding: 40px 28px;
+        border-radius: 28px;
+        border: 1px solid rgba(223,182,178,.14);
+        background: linear-gradient(160deg, rgba(43,18,76,.8), rgba(25,0,25,.6));
+        backdrop-filter: blur(20px);
+        box-shadow: 0 30px 80px -40px #000;
+      }
+      .logo { width: 190px; height: auto; margin-bottom: 24px; filter: drop-shadow(0 10px 30px rgba(223,182,178,.15)); }
+      .badge {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 5px 12px; margin-bottom: 16px;
+        border-radius: 999px; font-size: 12px;
+        border: 1px solid rgba(223,182,178,.2);
+        background: rgba(223,182,178,.08);
+        color: #DFB6B2;
+      }
+      h1 { font-size: 26px; margin: 0 0 10px; }
+      p { color: #B98F9C; line-height: 1.9; font-size: 14px; margin: 0 0 26px; }
+      button {
+        font: inherit; font-weight: 700; cursor: pointer;
+        width: 100%; padding: 13px 20px; border-radius: 14px;
+        border: 0; background: #DFB6B2; color: #190019;
+      }
+      .hint { margin-top: 18px; font-size: 11px; color: #854F6C; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <img class="logo" src="/brand/logo-mark.png" alt="تخميس" />
+      <div class="badge">📍 مفيش نت دلوقتي</div>
+      <h1>أنت أوفلاين يا صاحبي</h1>
+      <p>
+        الصفحه دي محتاجة إنترنت عشان تجيب آخر إثباتات الشلة.
+        رجّع النت وجرّب تاني — الشلة مستنياك.
+      </p>
+      <button onclick="location.reload()">جرّب تاني 🔄</button>
+      <div class="hint">تخميس · شلتك، عاداتك، وخروجاتك</div>
+    </main>
+  </body>
+</html>
