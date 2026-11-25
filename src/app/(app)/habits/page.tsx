@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Flame, Shield, Target, Trophy } from "lucide-react";
+import { Camera, Flame, Shield, Target, Trophy } from "lucide-react";
 import { requireUser } from "@/lib/auth";
-import { getMyHabits, getWeekStanding, getHabitActivity, getLevel } from "@/lib/queries/habits";
+import { getMyHabits, getMyHabitsToday, getWeekStanding, getHabitActivity, getLevel } from "@/lib/queries/habits";
 import { HabitsManager } from "@/components/habits/habits-manager";
 import { ActivityChart } from "@/components/habits/activity-chart";
+import { QuickProofDialog } from "@/components/feed/quick-proof-dialog";
+import { Button } from "@/components/ui/button";
 import { formatNumber } from "@/lib/dates";
 
 export const dynamic = "force-dynamic";
@@ -12,9 +14,11 @@ export const metadata: Metadata = { title: "العادات" };
 export default async function HabitsPage() {
   const user = await requireUser();
   const habits = getMyHabits(user.id);
+  const todayHabits = getMyHabitsToday(user.id);
   const standing = getWeekStanding(user.id);
   const activity = getHabitActivity(user.id, 14);
   const level = getLevel(user.points);
+  const pending = todayHabits.filter((h) => !h.proof);
 
   const stats = [
     { icon: Flame, label: "الاستريك", value: `${formatNumber(user.streak)} يوم` },
@@ -25,6 +29,27 @@ export default async function HabitsPage() {
 
   return (
     <div className="space-y-4">
+      <section className="rounded-[6px] border border-border bg-card p-4 sm:p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.08em] text-primary">توثيق سريع</p>
+            <h1 className="mt-1 text-[28px] font-bold leading-tight">وثّق عادة النهاردة</h1>
+            <p className="mt-1 text-[13px] text-muted-foreground">
+              {pending.length > 0 ? `لسه ${pending.length} عادة مستنية التوثيق.` : "كل عاداتك متوثقة النهاردة."}
+            </p>
+          </div>
+          <QuickProofDialog
+            habits={todayHabits}
+            trigger={
+              <Button className="h-10 gap-2 rounded-[3px] px-4 font-[family-name:var(--font-mono)] text-[12px] tracking-[0.04em]" disabled={todayHabits.length === 0}>
+                <Camera className="size-4" />
+                وثّق عادة
+              </Button>
+            }
+          />
+        </div>
+      </section>
+
       <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-start">
         <HabitsManager initialHabits={habits.map((h) => ({ id: h.id, title: h.title, emoji: h.emoji }))} />
 
